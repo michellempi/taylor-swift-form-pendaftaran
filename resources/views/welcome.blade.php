@@ -48,7 +48,7 @@
                 <span class="detail-icon">◷</span>
                 <div>
                     <span class="detail-label">THE DATE</span>
-                    <strong>18 July 2027 · 7:00 PM</strong>
+                    <strong>18 July 2027 · 6:00 PM</strong>
                 </div>
             </div>
             <div class="event-detail">
