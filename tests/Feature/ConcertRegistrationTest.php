@@ -109,4 +109,22 @@ class ConcertRegistrationTest extends TestCase
             'unit_price' => ConcertRegistration::TICKET_CATEGORIES['golden-hour']['price'],
         ]);
     }
+
+    public function test_phone_number_formatting_is_normalized_before_validation(): void
+    {
+        Mail::fake();
+
+        $this->post(route('registrations.store'), [
+            'full_name' => 'Phone Format Guest',
+            'email' => 'phone-format@example.com',
+            'phone' => "+62\u{00A0}817-0304.5568",
+            'ticket_category' => 'golden-hour',
+            'ticket_quantity' => 1,
+        ])->assertRedirect(route('registrations.confirmation'));
+
+        $this->assertDatabaseHas('concert_registrations', [
+            'email' => 'phone-format@example.com',
+            'phone' => '+6281703045568',
+        ]);
+    }
 }

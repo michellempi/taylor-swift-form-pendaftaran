@@ -26,10 +26,18 @@ class ConcertRegistrationController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $phone = $request->input('phone');
+
+        if (is_string($phone)) {
+            $request->merge([
+                'phone' => preg_replace('/[\p{Z}\s().-]+/u', '', trim($phone)) ?? $phone,
+            ]);
+        }
+
         $validated = $request->validate([
             'full_name' => ['required', 'string', 'max:120'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'phone' => ['required', 'string', 'max:25', 'regex:/^\+?[0-9\s().-]{8,20}$/'],
+            'phone' => ['required', 'string', 'max:25', 'regex:/^\+?[0-9]{8,20}$/'],
             'ticket_category' => ['required', 'string', Rule::in(array_keys(ConcertRegistration::TICKET_CATEGORIES))],
             'ticket_quantity' => ['required', 'integer', 'min:1', 'max:4'],
         ]);
