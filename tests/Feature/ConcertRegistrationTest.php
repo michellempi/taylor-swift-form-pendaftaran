@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Mail\RegistrationEmail;
 use App\Models\ConcertRegistration;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ConcertRegistrationTest extends TestCase
@@ -27,6 +29,8 @@ class ConcertRegistrationTest extends TestCase
 
     public function test_valid_registration_is_saved_and_confirmation_is_session_scoped(): void
     {
+        Mail::fake();
+
         $response = $this->post(route('registrations.store'), [
             'full_name' => 'Taylor Fan',
             'email' => 'fan@example.com',
@@ -44,6 +48,15 @@ class ConcertRegistrationTest extends TestCase
             'ticket_quantity' => 2,
             'unit_price' => 2750000,
         ]);
+
+        Mail::assertSent(RegistrationEmail::class, function (RegistrationEmail $mail): bool {
+            $html = $mail->render();
+
+            return str_contains($html, 'Taylor Fan')
+                && str_contains($html, 'Lavender Haze')
+                && str_contains($html, '18 Juli 2027')
+                && str_contains($html, 'Luminous Garden, Jakarta');
+        });
 
         $this->get(route('registrations.confirmation'))
             ->assertOk()

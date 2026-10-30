@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegistrationEmail;
 use App\Models\ConcertRegistration;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -38,6 +40,8 @@ class ConcertRegistrationController extends Controller
             ...$validated,
             'unit_price' => $category['price'],
         ]);
+
+        Mail::send(new RegistrationEmail($registration));
 
         return redirect()
             ->route('registrations.confirmation')

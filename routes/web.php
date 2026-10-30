@@ -8,3 +8,5 @@ Route::get('/register', [ConcertRegistrationController::class, 'create'])->name(
 Route::post('/register', [ConcertRegistrationController::class, 'store'])->name('registrations.store');
 Route::get('/registration/confirmation', [ConcertRegistrationController::class, 'confirmation'])
     ->name('registrations.confirmation');
+
+Route::post('/pendaftaran', [ConcertRegistrationController::class, 'store'])->name('pendaftaran.store');
