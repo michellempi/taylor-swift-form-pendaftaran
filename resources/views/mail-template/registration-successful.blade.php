@@ -32,6 +32,18 @@
                                     <td align="right" style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#352c35; font-size:14px; font-weight:bold;">{{ $userName }}</td>
                                 </tr>
                                 <tr>
+                                    <td style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#817681; font-size:13px;">Email pendaftar</td>
+                                    <td align="right" style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#352c35; font-size:14px; font-weight:bold; word-break:break-word;">{{ $userEmail }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#817681; font-size:13px;">Nomor registrasi</td>
+                                    <td align="right" style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#352c35; font-size:14px; font-weight:bold;">{{ $registrationId }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#817681; font-size:13px;">Status registrasi</td>
+                                    <td align="right" style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#733f5b; font-size:14px; font-weight:bold;">{{ $registrationStatus }}</td>
+                                </tr>
+                                <tr>
                                     <td style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#817681; font-size:13px;">Tiket</td>
                                     <td align="right" style="padding:17px 20px; border-bottom:1px solid #eee5eb; color:#352c35; font-size:14px; font-weight:bold;">{{ $ticketCategory }} × {{ $ticketQuantity }}</td>
                                 </tr>

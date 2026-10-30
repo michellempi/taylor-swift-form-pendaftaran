@@ -53,6 +53,9 @@ class ConcertRegistrationTest extends TestCase
             $html = $mail->render();
 
             return str_contains($html, 'Taylor Fan')
+                && str_contains($html, 'fan@example.com')
+                && str_contains($html, 'REG-000001')
+                && str_contains($html, 'Berhasil (demo)')
                 && str_contains($html, 'Lavender Haze')
                 && str_contains($html, '18 Juli 2027')
                 && str_contains($html, 'Luminous Garden, Jakarta');

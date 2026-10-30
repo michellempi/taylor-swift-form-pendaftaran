@@ -36,6 +36,9 @@ class RegistrationEmail extends Mailable
             view: 'mail-template.registration-successful',
             with: [
                 'userName' => $this->registration->full_name,
+                'userEmail' => $this->registration->email,
+                'registrationId' => 'REG-'.str_pad((string) $this->registration->id, 6, '0', STR_PAD_LEFT),
+                'registrationStatus' => 'Berhasil (demo)',
                 'ticketCategory' => ConcertRegistration::TICKET_CATEGORIES[$this->registration->ticket_category]['label'],
                 'ticketQuantity' => $this->registration->ticket_quantity,
                 'eventDate' => '18 Juli 2027',
