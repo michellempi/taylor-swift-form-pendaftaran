@@ -77,7 +77,7 @@ class ConcertRegistrationTest extends TestCase
             ->post(route('registrations.store'), [
                 'full_name' => '',
                 'email' => 'not-an-email',
-                'phone' => 'letters-only',
+                'phone' => '',
                 'ticket_category' => 'backstage',
                 'ticket_quantity' => 5,
             ])
