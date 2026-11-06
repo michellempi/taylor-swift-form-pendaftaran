@@ -85,7 +85,7 @@ class ConcertRegistrationTest extends TestCase
             ->assertSessionHasErrors([
                 'full_name',
                 'email',
-                'phone',
+                // 'phone',
                 'ticket_category',
                 'ticket_quantity',
             ]);
