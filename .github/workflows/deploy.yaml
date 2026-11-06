@@ -135,11 +135,20 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         port: 22
+        
         script: |
           cd /home/sift-taylorswift/htdocs/taylorswift.sift.my.id
           git pull origin main
           rm -rf vendor
           tar -xzf vendor.tar.gz
           rm -f vendor.tar.gz
+
+          # Remove stale Laravel package manifests
+          rm -f bootstrap/cache/packages.php
+          rm -f bootstrap/cache/services.php
+
+          # Rebuild package discovery for production dependencies
+          php artisan package:discover --ansi
           php artisan migrate --force
           php artisan config:cache
+
