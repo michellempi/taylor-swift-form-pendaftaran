@@ -135,7 +135,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         port: 22
-        
+
         script: |
           cd /home/sift-taylorswift/htdocs/taylorswift.sift.my.id
           git pull origin main
@@ -143,12 +143,24 @@ jobs:
           tar -xzf vendor.tar.gz
           rm -f vendor.tar.gz
 
-          # Remove stale Laravel package manifests
           rm -f bootstrap/cache/packages.php
           rm -f bootstrap/cache/services.php
 
-          # Rebuild package discovery for production dependencies
+          echo "===== CHECK BOOST PACKAGE ====="
+          if [ -d vendor/laravel/boost ]; then
+            echo "BOOST_INSTALLED"
+          else
+            echo "BOOST_NOT_INSTALLED"
+          fi
+
+          echo "===== SEARCH BOOST REFERENCES ====="
+          grep -R -n "BoostServiceProvider" \
+            bootstrap app config vendor/composer/installed.json \
+            2>/dev/null || true
+
+          echo "===== LARAVEL PACKAGE DISCOVERY ====="
           php artisan package:discover --ansi
+
           php artisan migrate --force
           php artisan config:cache
 
