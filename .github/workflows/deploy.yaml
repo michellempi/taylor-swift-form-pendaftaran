@@ -54,7 +54,7 @@ jobs:
 
     - name: Run Migrations & Tests
       run: |
-        php artisan migrate --env=testing
+        php artisan migrate --env=testing --force
         php artisan test
       env:
         DB_CONNECTION: mysql
